@@ -1,0 +1,114 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table admins {
+  id Int [pk, increment]
+  username String [unique, not null]
+  name String [not null]
+  phone String [not null]
+  passwordHash String [not null]
+  refreshToken String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table regions {
+  id Int [pk, increment]
+  name String [unique, not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  areas areas [not null]
+  retailers retailers [not null]
+}
+
+Table areas {
+  id Int [pk, increment]
+  name String [not null]
+  regionId Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  region regions [not null]
+  territories territories [not null]
+  retailers retailers [not null]
+}
+
+Table distributors {
+  id Int [pk, increment]
+  name String [unique, not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  retailers retailers [not null]
+}
+
+Table territories {
+  id Int [pk, increment]
+  name String [not null]
+  areaId Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  area areas [not null]
+  retailers retailers [not null]
+}
+
+Table retailers {
+  id Int [pk, increment]
+  uid String [unique, not null]
+  name String [not null]
+  phone String [not null]
+  regionId Int [not null]
+  areaId Int [not null]
+  distributorId Int [not null]
+  territoryId Int [not null]
+  points Int [not null, default: 0]
+  routes Json [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  region regions [not null]
+  area areas [not null]
+  distributor distributors [not null]
+  territory territories [not null]
+  assignments sales_rep_retailers [not null]
+}
+
+Table sales_reps {
+  id Int [pk, increment]
+  username String [unique, not null]
+  name String [not null]
+  phone String [not null]
+  passwordHash String [not null]
+  refreshToken String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  assignments sales_rep_retailers [not null]
+}
+
+Table sales_rep_retailers {
+  salesRepId Int [not null]
+  retailerId Int [not null]
+  assignedAt DateTime [default: `now()`, not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  salesRep sales_reps [not null]
+  retailer retailers [not null]
+
+  indexes {
+    (salesRepId, retailerId) [pk]
+  }
+}
+
+Ref: areas.regionId > regions.id
+
+Ref: territories.areaId > areas.id
+
+Ref: retailers.regionId > regions.id
+
+Ref: retailers.areaId > areas.id
+
+Ref: retailers.distributorId > distributors.id
+
+Ref: retailers.territoryId > territories.id
+
+Ref: sales_rep_retailers.salesRepId > sales_reps.id [delete: Cascade]
+
+Ref: sales_rep_retailers.retailerId > retailers.id [delete: Cascade]
