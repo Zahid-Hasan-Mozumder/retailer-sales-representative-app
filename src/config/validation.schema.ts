@@ -10,4 +10,8 @@ export const validationSchema = Joi.object({
 
     // Database Config
     DATABASE_URL: Joi.string().required(),
+
+    // Auth Config
+    JWT_ACCESS_TOKEN_SECRET: Joi.string().required(),
+    JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),
 });

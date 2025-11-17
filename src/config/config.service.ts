@@ -13,4 +13,12 @@ export class ConfigService {
     // Throws if missing and ensures typed string
     return this.configService.get<string>('database.url')!;
   }
+
+  get accessTokenSecret(): string {
+    return this.configService.get<string>('auth.accessTokenSecret')!;
+  }
+
+  get refreshTokenSecret(): string {
+    return this.configService.get<string>('auth.refreshTokenSecret')!;
+  }
 }
