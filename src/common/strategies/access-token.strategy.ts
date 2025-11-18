@@ -40,7 +40,7 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
         },
       );
       if (!user) {
-        throw new UnauthorizedException('User not found');
+        throw new UnauthorizedException('Invalid access token');
       }
       return {
         id: user.id.toString(),
@@ -69,7 +69,7 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
         },
       );
       if (!user) {
-        throw new UnauthorizedException('User not found');
+        throw new UnauthorizedException('Invalid access token');
       }
       return {
         id: user.id.toString(),
