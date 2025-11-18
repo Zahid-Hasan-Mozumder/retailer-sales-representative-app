@@ -20,7 +20,8 @@ model Admin {
   name      String
   phone     String
   passwordHash String @map("password_hash")
-  refreshToken String? @map("refresh_token")
+  jti          String? @unique @map("jti")
+  jtiExpiresAt    DateTime? @map("jti_expires_at")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
@@ -114,7 +115,8 @@ model SalesRep {
   name         String
   phone        String
   passwordHash String @map("password_hash")
-  refreshToken String? @map("refresh_token")
+  jti          String? @unique @map("jti")
+  jtiExpiresAt    DateTime? @map("jti_expires_at")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 

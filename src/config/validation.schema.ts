@@ -14,4 +14,10 @@ export const validationSchema = Joi.object({
     // Auth Config
     JWT_ACCESS_TOKEN_SECRET: Joi.string().required(),
     JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),
+
+    // Redis Config
+    REDIS_HOST: Joi.string().required(),
+    REDIS_PORT: Joi.number().required(),
+    REDIS_USERNAME: Joi.string().required(),
+    REDIS_PASSWORD: Joi.string().required(),
 });

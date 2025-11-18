@@ -1,6 +1,6 @@
-import { Role } from '../enums/role.enum';
+import { Role } from '../enums';
 
-export interface JwtPayload {
+export interface AccessTokenPayload {
   sub: string;
   username: string;
   role: Role;

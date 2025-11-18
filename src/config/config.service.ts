@@ -21,4 +21,20 @@ export class ConfigService {
   get refreshTokenSecret(): string {
     return this.configService.get<string>('auth.refreshTokenSecret')!;
   }
+
+  get redisHost(): string {
+    return this.configService.get<string>('redis.host')!;
+  }
+
+  get redisPort(): number {
+    return this.configService.get<number>('redis.port')!;
+  }
+
+  get redisUsername(): string {
+    return this.configService.get<string>('redis.username')!;
+  }
+
+  get redisPassword(): string {
+    return this.configService.get<string>('redis.password')!;
+  }
 }
