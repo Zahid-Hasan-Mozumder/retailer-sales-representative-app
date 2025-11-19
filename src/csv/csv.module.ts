@@ -4,6 +4,6 @@ import { CsvService } from './csv.service';
 
 @Module({
   controllers: [CsvController],
-  providers: [CsvService]
+  providers: [CsvService],
 })
 export class CsvModule {}

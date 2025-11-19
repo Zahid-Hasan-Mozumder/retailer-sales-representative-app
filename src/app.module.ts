@@ -5,6 +5,11 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './api/auth/auth.module';
 import { CacheModule } from './cache/cache.module';
 import { CsvModule } from './csv/csv.module';
+import { RegionModule } from './api/region/region.module';
+import { AreaModule } from './api/area/area.module';
+import { TerritoryModule } from './api/territory/territory.module';
+import { DistributorModule } from './api/distributor/distributor.module';
+import { AdminModule } from './api/admin/admin.module';
 
 @Module({
   imports: [
@@ -14,6 +19,11 @@ import { CsvModule } from './csv/csv.module';
     AuthModule,
     CacheModule,
     CsvModule,
+    RegionModule,
+    AreaModule,
+    TerritoryModule,
+    DistributorModule,
+    AdminModule,
   ],
   controllers: [],
   providers: [],
