@@ -30,7 +30,9 @@ async function bootstrap() {
 function setupSwagger(app: any): void {
   const config = new DocumentBuilder()
     .setTitle('Retailer Sales Representative API')
-    .setDescription('API documentation for the Retailer Sales Representative APP')
+    .setDescription(
+      'API documentation for the Retailer Sales Representative APP',
+    )
     .setVersion('1.0')
     .addBearerAuth()
     .build();

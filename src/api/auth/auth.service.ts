@@ -74,28 +74,22 @@ export class AuthService {
       secret: this.config.refreshTokenSecret,
       expiresIn: '7d',
     });
-    await this.cache.setCache(
-      `${Role.ADMIN}:${created.username}`,
-      JSON.stringify({
-        id: created.id,
-        username: created.username,
-        name: created.name,
-        phone: created.phone,
-        createdAt: created.createdAt,
-        updatedAt: created.updatedAt,
-      }),
-    );
-    await this.cache.setCache(
-      `${Role.ADMIN}:${created.jti}`,
-      JSON.stringify({
-        id: created.id,
-        username: created.username,
-        name: created.name,
-        phone: created.phone,
-        createdAt: created.createdAt,
-        updatedAt: created.updatedAt,
-      }),
-    );
+    await this.cache.setCache(`${Role.ADMIN}:${created.username}`, {
+      id: created.id,
+      username: created.username,
+      name: created.name,
+      phone: created.phone,
+      createdAt: created.createdAt,
+      updatedAt: created.updatedAt,
+    });
+    await this.cache.setCache(`${Role.ADMIN}:${created.jti}`, {
+      id: created.id,
+      username: created.username,
+      name: created.name,
+      phone: created.phone,
+      createdAt: created.createdAt,
+      updatedAt: created.updatedAt,
+    });
     return {
       id: created.id,
       username: created.username,
@@ -141,28 +135,22 @@ export class AuthService {
       secret: this.config.refreshTokenSecret,
       expiresIn: '7d',
     });
-    await this.cache.setCache(
-      `${Role.ADMIN}:${admin.username}`,
-      JSON.stringify({
-        id: admin.id,
-        username: admin.username,
-        name: admin.name,
-        phone: admin.phone,
-        createdAt: admin.createdAt,
-        updatedAt: admin.updatedAt,
-      }),
-    );
-    await this.cache.setCache(
-      `${Role.ADMIN}:${generatedJti}`,
-      JSON.stringify({
-        id: admin.id,
-        username: admin.username,
-        name: admin.name,
-        phone: admin.phone,
-        createdAt: admin.createdAt,
-        updatedAt: admin.updatedAt,
-      }),
-    );
+    await this.cache.setCache(`${Role.ADMIN}:${admin.username}`, {
+      id: admin.id,
+      username: admin.username,
+      name: admin.name,
+      phone: admin.phone,
+      createdAt: admin.createdAt,
+      updatedAt: admin.updatedAt,
+    });
+    await this.cache.setCache(`${Role.ADMIN}:${generatedJti}`, {
+      id: admin.id,
+      username: admin.username,
+      name: admin.name,
+      phone: admin.phone,
+      createdAt: admin.createdAt,
+      updatedAt: admin.updatedAt,
+    });
     return {
       id: admin.id,
       username: admin.username,
@@ -219,28 +207,22 @@ export class AuthService {
       secret: this.config.refreshTokenSecret,
       expiresIn: '7d',
     });
-    await this.cache.setCache(
-      `${Role.ADMIN}:${updated.username}`,
-      JSON.stringify({
-        id: updated.id,
-        username: updated.username,
-        name: updated.name,
-        phone: updated.phone,
-        createdAt: updated.createdAt,
-        updatedAt: updated.updatedAt,
-      }),
-    );
-    await this.cache.setCache(
-      `${Role.ADMIN}:${updated.jti}`,
-      JSON.stringify({
-        id: updated.id,
-        username: updated.username,
-        name: updated.name,
-        phone: updated.phone,
-        createdAt: updated.createdAt,
-        updatedAt: updated.updatedAt,
-      }),
-    );
+    await this.cache.setCache(`${Role.ADMIN}:${updated.username}`, {
+      id: updated.id,
+      username: updated.username,
+      name: updated.name,
+      phone: updated.phone,
+      createdAt: updated.createdAt,
+      updatedAt: updated.updatedAt,
+    });
+    await this.cache.setCache(`${Role.ADMIN}:${updated.jti}`, {
+      id: updated.id,
+      username: updated.username,
+      name: updated.name,
+      phone: updated.phone,
+      createdAt: updated.createdAt,
+      updatedAt: updated.updatedAt,
+    });
     return {
       tokens: { accessToken, refreshToken, expiresIn: 3600 },
     };
@@ -283,26 +265,23 @@ export class AuthService {
     });
     await this.cache.setCache(
       `${Role.SALES_REPRESENTATIVE}:${created.username}`,
-      JSON.stringify({
+      {
         id: created.id,
         username: created.username,
         name: created.name,
         phone: created.phone,
         createdAt: created.createdAt,
         updatedAt: created.updatedAt,
-      }),
+      },
     );
-    await this.cache.setCache(
-      `${Role.SALES_REPRESENTATIVE}:${created.jti}`,
-      JSON.stringify({
-        id: created.id,
-        username: created.username,
-        name: created.name,
-        phone: created.phone,
-        createdAt: created.createdAt,
-        updatedAt: created.updatedAt,
-      }),
-    );
+    await this.cache.setCache(`${Role.SALES_REPRESENTATIVE}:${created.jti}`, {
+      id: created.id,
+      username: created.username,
+      name: created.name,
+      phone: created.phone,
+      createdAt: created.createdAt,
+      updatedAt: created.updatedAt,
+    });
     return {
       id: created.id,
       username: created.username,
@@ -351,26 +330,23 @@ export class AuthService {
     });
     await this.cache.setCache(
       `${Role.SALES_REPRESENTATIVE}:${salesRep.username}`,
-      JSON.stringify({
+      {
         id: salesRep.id,
         username: salesRep.username,
         name: salesRep.name,
         phone: salesRep.phone,
         createdAt: salesRep.createdAt,
         updatedAt: salesRep.updatedAt,
-      }),
+      },
     );
-    await this.cache.setCache(
-      `${Role.SALES_REPRESENTATIVE}:${generatedJti}`,
-      JSON.stringify({
-        id: salesRep.id,
-        username: salesRep.username,
-        name: salesRep.name,
-        phone: salesRep.phone,
-        createdAt: salesRep.createdAt,
-        updatedAt: salesRep.updatedAt,
-      }),
-    );
+    await this.cache.setCache(`${Role.SALES_REPRESENTATIVE}:${salesRep.jti}`, {
+      id: salesRep.id,
+      username: salesRep.username,
+      name: salesRep.name,
+      phone: salesRep.phone,
+      createdAt: salesRep.createdAt,
+      updatedAt: salesRep.updatedAt,
+    });
     return {
       id: salesRep.id,
       username: salesRep.username,
@@ -436,26 +412,23 @@ export class AuthService {
     });
     await this.cache.setCache(
       `${Role.SALES_REPRESENTATIVE}:${updated.username}`,
-      JSON.stringify({
+      {
         id: updated.id,
         username: updated.username,
         name: updated.name,
         phone: updated.phone,
         createdAt: updated.createdAt,
         updatedAt: updated.updatedAt,
-      }),
+      },
     );
-    await this.cache.setCache(
-      `${Role.SALES_REPRESENTATIVE}:${updated.jti}`,
-      JSON.stringify({
-        id: updated.id,
-        username: updated.username,
-        name: updated.name,
-        phone: updated.phone,
-        createdAt: updated.createdAt,
-        updatedAt: updated.updatedAt,
-      }),
-    );
+    await this.cache.setCache(`${Role.SALES_REPRESENTATIVE}:${updated.jti}`, {
+      id: updated.id,
+      username: updated.username,
+      name: updated.name,
+      phone: updated.phone,
+      createdAt: updated.createdAt,
+      updatedAt: updated.updatedAt,
+    });
     return {
       tokens: { accessToken, refreshToken, expiresIn: 3600 },
     };
