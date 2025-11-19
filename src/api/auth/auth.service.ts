@@ -2,7 +2,6 @@ import {
   Injectable,
   BadRequestException,
   UnauthorizedException,
-  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
@@ -37,7 +36,7 @@ export class AuthService {
   ) {}
 
   generateJti(): string {
-    return uuidv4() as string;
+    return uuidv4();
   }
 
   async adminSignup(dto: SignupDto): Promise<SignupResponseDto> {
@@ -178,6 +177,8 @@ export class AuthService {
       where: { username: user.username },
     });
     if (!admin) throw new NotFoundException('User not found');
+    if (!admin.jti || !(admin.jtiExpiresAt && admin.jtiExpiresAt > new Date()))
+      throw new BadRequestException('Please login first');
     await this.cache.deleteCache(`${Role.ADMIN}:${admin.jti}`);
     await this.prisma.admin.update({
       where: { id: admin.id },
@@ -384,6 +385,11 @@ export class AuthService {
       where: { username: user.username },
     });
     if (!salesRep) throw new NotFoundException('User not found');
+    if (
+      !salesRep.jti ||
+      !(salesRep.jtiExpiresAt && salesRep.jtiExpiresAt > new Date())
+    )
+      throw new BadRequestException('Please login first');
     await this.cache.deleteCache(
       `${Role.SALES_REPRESENTATIVE}:${salesRep.jti}`,
     );

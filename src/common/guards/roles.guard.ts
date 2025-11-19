@@ -18,9 +18,6 @@ export class RolesGuard implements CanActivate {
       REFRESH_ROLES,
       context.getHandler(),
     );
-
-    console.log('roles', roles);
-    console.log('refreshRoles', refreshRoles);
     
     // If no roles are required, allow access
     if (!roles && !refreshRoles) {
