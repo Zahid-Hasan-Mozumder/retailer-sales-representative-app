@@ -11,7 +11,7 @@ import {
 } from '@nestjs/swagger';
 import { Authorize } from '../common/decorators';
 import { Role } from '../common/enums';
-import { GenerateCsvResponseDto } from './dto/generate-csv-response.dto';
+import { GenerateCsvResponseDto } from './dto';
 
 @ApiTags('csv')
 @ApiBearerAuth()
