@@ -2,6 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import * as fs from 'fs';
 import * as readline from 'readline';
+import {
+  BulkAssignDto,
+  BulkAssignResponseDto,
+  BulkUnassignDto,
+  BulkUnassignResponseDto,
+} from './dto';
 
 @Injectable()
 export class AdminService {
@@ -77,6 +83,69 @@ export class AdminService {
       }
     }
     return stats;
+  }
+
+  async bulkAssignRetailers(
+    dto: BulkAssignDto,
+  ): Promise<BulkAssignResponseDto> {
+    const salesRep = await this.prisma.salesRep.findUnique({
+      where: { id: dto.salesRepId },
+    });
+    if (!salesRep) throw new Error('Sales representative not found');
+    let assigned = 0;
+    for (const uid of dto.retailerUids) {
+      const retailer = await this.prisma.retailer.findUnique({
+        where: { uid: uid },
+      });
+      if (!retailer) continue;
+      await this.prisma.salesRepRetailer.upsert({
+        where: {
+          salesRepId_retailerId: {
+            salesRepId: dto.salesRepId,
+            retailerId: retailer.id,
+          },
+        },
+        update: {},
+        create: {
+          salesRepId: dto.salesRepId,
+          retailerId: retailer.id,
+          assignedAt: new Date(Date.now()),
+        },
+      });
+      assigned++;
+    }
+    return { assigned: assigned, requested: dto.retailerUids.length };
+  }
+
+  async bulkUnassignRetailers(
+    dto: BulkUnassignDto,
+  ): Promise<BulkUnassignResponseDto> {
+    let unassigned = 0;
+    for (const uid of dto.retailerUids) {
+      const retailer = await this.prisma.retailer.findUnique({
+        where: { uid: uid },
+      });
+      if (!retailer) continue;
+      const exist = await this.prisma.salesRepRetailer.findUnique({
+        where: {
+          salesRepId_retailerId: {
+            salesRepId: dto.salesRepId,
+            retailerId: retailer.id,
+          },
+        },
+      });
+      if (!exist) continue;
+      await this.prisma.salesRepRetailer.delete({
+        where: {
+          salesRepId_retailerId: {
+            salesRepId: dto.salesRepId,
+            retailerId: retailer.id,
+          },
+        },
+      });
+      unassigned++;
+    }
+    return { unassigned: unassigned, requested: dto.retailerUids.length };
   }
 
   private async upsertRegion(name: string) {
