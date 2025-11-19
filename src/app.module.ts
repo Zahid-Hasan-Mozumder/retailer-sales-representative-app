@@ -4,6 +4,7 @@ import { PasswordModule } from './password/password.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './api/auth/auth.module';
 import { CacheModule } from './cache/cache.module';
+import { CsvModule } from './csv/csv.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { CacheModule } from './cache/cache.module';
     PrismaModule,
     AuthModule,
     CacheModule,
+    CsvModule,
   ],
   controllers: [],
   providers: [],
