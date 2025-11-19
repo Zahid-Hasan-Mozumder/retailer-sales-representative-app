@@ -9,29 +9,29 @@ datasource db {
 }
 
 generator dbml {
-  provider = "prisma-dbml-generator"
-  output   = "../dbml"         // Optional: output directory relative to prisma folder
-  outputName = "schema.dbml"   // Optional: output file name
+  provider   = "prisma-dbml-generator"
+  output     = "../dbml" // Optional: output directory relative to prisma folder
+  outputName = "schema.dbml" // Optional: output file name
 }
 
 model Admin {
-  id        Int       @id @default(autoincrement())
-  username  String    @unique
-  name      String
-  phone     String
-  passwordHash String @map("password_hash")
-  jti          String? @unique @map("jti")
-  jtiExpiresAt    DateTime? @map("jti_expires_at")
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
+  id           Int       @id @default(autoincrement())
+  username     String    @unique
+  name         String
+  phone        String
+  passwordHash String    @map("password_hash")
+  jti          String?   @unique @map("jti")
+  jtiExpiresAt DateTime? @map("jti_expires_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
 
   @@index([username])
   @@map("admins")
 }
 
 model Region {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -42,13 +42,13 @@ model Region {
 }
 
 model Area {
-  id        Int       @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
-  regionId  Int       @map("region_id")
+  regionId  Int      @map("region_id")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  region     Region    @relation(fields: [regionId], references: [id])
+  region      Region      @relation(fields: [regionId], references: [id])
   territories Territory[]
   retailers   Retailer[]
 
@@ -57,8 +57,8 @@ model Area {
 }
 
 model Distributor {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -68,13 +68,13 @@ model Distributor {
 }
 
 model Territory {
-  id      Int    @id @default(autoincrement())
-  name    String
-  areaId  Int    @map("area_id")
+  id        Int      @id @default(autoincrement())
+  name      String
+  areaId    Int      @map("area_id")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  area      Area      @relation(fields: [areaId], references: [id])
+  area      Area       @relation(fields: [areaId], references: [id])
   retailers Retailer[]
 
   @@index([areaId])
@@ -82,21 +82,21 @@ model Territory {
 }
 
 model Retailer {
-  id            Int         @id @default(autoincrement())
-  uid           String      @unique
+  id            Int      @id @default(autoincrement())
+  uid           String   @unique
   name          String
   phone         String
-  regionId      Int         @map("region_id")
-  areaId        Int         @map("area_id")
-  distributorId Int         @map("distributor_id")
-  territoryId   Int         @map("territory_id")
-  points        Int         @default(0)
+  regionId      Int      @map("region_id")
+  areaId        Int      @map("area_id")
+  distributorId Int      @map("distributor_id")
+  territoryId   Int      @map("territory_id")
+  points        Int      @default(0)
   routes        Json
-  createdAt     DateTime    @default(now()) @map("created_at")
-  updatedAt     DateTime    @updatedAt @map("updated_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
 
-  region     Region     @relation(fields: [regionId], references: [id])
-  area       Area       @relation(fields: [areaId], references: [id])
+  region      Region      @relation(fields: [regionId], references: [id])
+  area        Area        @relation(fields: [areaId], references: [id])
   distributor Distributor @relation(fields: [distributorId], references: [id])
   territory   Territory   @relation(fields: [territoryId], references: [id])
 
@@ -110,15 +110,15 @@ model Retailer {
 }
 
 model SalesRep {
-  id           Int    @id @default(autoincrement())
-  username     String @unique
+  id           Int       @id @default(autoincrement())
+  username     String    @unique
   name         String
   phone        String
-  passwordHash String @map("password_hash")
-  jti          String? @unique @map("jti")
-  jtiExpiresAt    DateTime? @map("jti_expires_at")
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
+  passwordHash String    @map("password_hash")
+  jti          String?   @unique @map("jti")
+  jtiExpiresAt DateTime? @map("jti_expires_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
 
   assignments SalesRepRetailer[]
 
