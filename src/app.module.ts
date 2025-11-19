@@ -4,6 +4,7 @@ import { PasswordModule } from './password/password.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './api/auth/auth.module';
 import { CacheModule } from './cache/cache.module';
+import { CsvModule } from './csv/csv.module';
 import { RegionModule } from './api/region/region.module';
 import { AreaModule } from './api/area/area.module';
 import { TerritoryModule } from './api/territory/territory.module';
@@ -16,6 +17,7 @@ import { DistributorModule } from './api/distributor/distributor.module';
     PrismaModule,
     AuthModule,
     CacheModule,
+    CsvModule,
     RegionModule,
     AreaModule,
     TerritoryModule,
