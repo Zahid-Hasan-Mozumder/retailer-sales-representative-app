@@ -20,7 +20,7 @@ import { GenerateCsvResponseDto } from './dto/generate-csv-response.dto';
 export class CsvController {
   constructor(private readonly csvService: CsvService) {}
 
-  @Get('generate')
+  @Get('generate/retailers')
   @ApiOperation({ summary: 'Generate CSV and save to local file' })
   @ApiQuery({ name: 'count', required: false, example: 2000000 })
   @ApiResponse({
