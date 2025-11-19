@@ -22,7 +22,7 @@ export class CsvController {
 
   @Get('generate/retailers')
   @ApiOperation({ summary: 'Generate CSV and save to local file' })
-  @ApiQuery({ name: 'count', required: false, example: 2000000 })
+  @ApiQuery({ name: 'count', required: false, example: 1000000 })
   @ApiResponse({
     status: 200,
     description: 'CSV generated',
@@ -31,7 +31,7 @@ export class CsvController {
   async generate(
     @Query('count') count: string,
   ): Promise<GenerateCsvResponseDto> {
-    const n = count ? Number(count) : 2000000;
+    const n = count ? Number(count) : 1000000;
     const dir = path.resolve(process.cwd(), 'storage', 'csv');
     fs.mkdirSync(dir, { recursive: true });
     const filePath = path.join(

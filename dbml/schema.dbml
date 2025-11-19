@@ -32,6 +32,10 @@ Table areas {
   region regions [not null]
   territories territories [not null]
   retailers retailers [not null]
+
+  indexes {
+    (name, regionId) [unique]
+  }
 }
 
 Table distributors {
@@ -50,6 +54,10 @@ Table territories {
   updatedAt DateTime [not null]
   area areas [not null]
   retailers retailers [not null]
+
+  indexes {
+    (name, areaId) [unique]
+  }
 }
 
 Table retailers {

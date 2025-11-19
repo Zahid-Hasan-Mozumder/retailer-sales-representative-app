@@ -52,6 +52,7 @@ model Area {
   territories Territory[]
   retailers   Retailer[]
 
+  @@unique([name, regionId])
   @@index([regionId])
   @@map("areas")
 }
@@ -77,6 +78,7 @@ model Territory {
   area      Area       @relation(fields: [areaId], references: [id])
   retailers Retailer[]
 
+  @@unique([name, areaId])
   @@index([areaId])
   @@map("territories")
 }
