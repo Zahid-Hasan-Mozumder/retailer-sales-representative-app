@@ -9,6 +9,7 @@ import { RegionModule } from './api/region/region.module';
 import { AreaModule } from './api/area/area.module';
 import { TerritoryModule } from './api/territory/territory.module';
 import { DistributorModule } from './api/distributor/distributor.module';
+import { AdminModule } from './api/admin/admin.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { DistributorModule } from './api/distributor/distributor.module';
     AreaModule,
     TerritoryModule,
     DistributorModule,
+    AdminModule,
   ],
   controllers: [],
   providers: [],
