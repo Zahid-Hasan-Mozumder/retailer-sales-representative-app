@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  ForbiddenException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import {
   RetailerResponseDto,
@@ -61,33 +57,77 @@ export class RetailerService {
     return new RetailersQueryResponseDto(items, total, page, limit);
   }
 
-  // async findByUid(user: User, uid: string): Promise<RetailerResponseDto> {
-  //   const retailer = await this.prisma.retailer.findUnique({ where: { uid } });
-  //   if (!retailer) throw new NotFoundException('Retailer not found');
-  //   const isAdmin = user.role === Role.ADMIN;
-  //   if (!isAdmin && retailer.salesRepId !== Number(user.id))
-  //     throw new NotFoundException('Retailer not found');
-  //   return retailer as RetailerResponseDto;
-  // }
+  async findByUid(user: User, uid: string): Promise<RetailerResponseDto> {
+    let retailer: Retailer | null = null;
+    if (user.role === Role.ADMIN) {
+      retailer = await this.prisma.retailer.findUnique({
+        where: { uid },
+      });
+    } else {
+      retailer = await this.prisma.retailer.findFirst({
+        where: {
+          uid,
+          assignments: {
+            some: {
+              salesRepId: Number(user.id),
+            },
+          },
+        },
+      });
+    }
+    if (!retailer) throw new NotFoundException('Retailer not found');
+    return retailer as RetailerResponseDto;
+  }
 
-  // async update(
-  //   user: User,
-  //   uid: string,
-  //   dto: UpdateRetailerDto,
-  // ): Promise<RetailerResponseDto> {
-  //   const existing = await this.prisma.retailer.findUnique({ where: { uid } });
-  //   if (!existing) throw new NotFoundException('Retailer not found');
-  //   const isAdmin = user.role === Role.ADMIN;
-  //   if (!isAdmin && existing.salesRepId !== Number(user.id))
-  //     throw new ForbiddenException('Not allowed');
-  //   const updated = await this.prisma.retailer.update({
-  //     where: { uid },
-  //     data: {
-  //       ...(dto.name !== undefined ? { name: dto.name } : {}),
-  //       ...(dto.phone !== undefined ? { phone: dto.phone } : {}),
-  //       ...(dto.routes !== undefined ? { routes: dto.routes } : {}),
-  //     },
-  //   });
-  //   return updated as RetailerResponseDto;
-  // }
+  async update(
+    user: User,
+    uid: string,
+    dto: UpdateRetailerDto,
+  ): Promise<RetailerResponseDto> {
+    let updatedRetailer: Retailer | null = null;
+    if (user.role === Role.ADMIN) {
+      updatedRetailer = await this.prisma.retailer.update({
+        where: { uid },
+        data: {
+          ...(dto.name !== undefined ? { name: dto.name } : {}),
+          ...(dto.phone !== undefined ? { phone: dto.phone } : {}),
+          ...(dto.regionId !== undefined ? { regionId: dto.regionId } : {}),
+          ...(dto.areaId !== undefined ? { areaId: dto.areaId } : {}),
+          ...(dto.distributorId !== undefined
+            ? { distributorId: dto.distributorId }
+            : {}),
+          ...(dto.territoryId !== undefined
+            ? { territoryId: dto.territoryId }
+            : {}),
+          ...(dto.routes !== undefined ? { routes: dto.routes } : {}),
+        },
+      });
+    } else {
+      updatedRetailer = await this.prisma.retailer.update({
+        where: {
+          uid,
+          assignments: {
+            some: {
+              salesRepId: Number(user.id),
+            },
+          },
+        },
+        data: {
+          ...(dto.name !== undefined ? { name: dto.name } : {}),
+          ...(dto.phone !== undefined ? { phone: dto.phone } : {}),
+          ...(dto.regionId !== undefined ? { regionId: dto.regionId } : {}),
+          ...(dto.areaId !== undefined ? { areaId: dto.areaId } : {}),
+          ...(dto.distributorId !== undefined
+            ? { distributorId: dto.distributorId }
+            : {}),
+          ...(dto.territoryId !== undefined
+            ? { territoryId: dto.territoryId }
+            : {}),
+          ...(dto.routes !== undefined ? { routes: dto.routes } : {}),
+        },
+      });
+    }
+    if (!updatedRetailer) throw new NotFoundException('Retailer not found');
+    return updatedRetailer as RetailerResponseDto;
+  }
 }

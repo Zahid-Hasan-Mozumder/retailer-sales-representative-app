@@ -1,5 +1,12 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional, IsString, MinLength, IsObject } from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  MinLength,
+  IsObject,
+  IsNumber,
+  IsInt,
+} from 'class-validator';
 
 export class UpdateRetailerDto {
   @ApiPropertyOptional({ example: 'Rahim Hossain' })
@@ -13,6 +20,30 @@ export class UpdateRetailerDto {
   @IsString()
   @MinLength(1)
   phone?: string;
+
+  @ApiPropertyOptional({ example: 6 })
+  @IsOptional()
+  @IsNumber()
+  @IsInt()
+  regionId?: number;
+
+  @ApiPropertyOptional({ example: 22 })
+  @IsOptional()
+  @IsNumber()
+  @IsInt()
+  areaId?: number;
+
+  @ApiPropertyOptional({ example: 25 })
+  @IsOptional()
+  @IsNumber()
+  @IsInt()
+  distributorId?: number;
+
+  @ApiPropertyOptional({ example: 66 })
+  @IsOptional()
+  @IsNumber()
+  @IsInt()
+  territoryId?: number;
 
   @ApiPropertyOptional({ example: { waypoints: [{ lat: 23.78, lng: 90.41 }] } })
   @IsOptional()
