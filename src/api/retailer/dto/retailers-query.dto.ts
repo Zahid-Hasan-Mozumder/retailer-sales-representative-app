@@ -5,7 +5,6 @@ import {
   IsString,
   Min,
   IsEnum,
-  IsBoolean,
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -16,24 +15,28 @@ export class RetailersQueryFilter {
   @IsOptional()
   @IsInt()
   @Min(1)
+  @Type(() => Number)
   regionId?: number;
 
   @ApiPropertyOptional({ example: 1 })
   @IsOptional()
   @IsInt()
   @Min(1)
+  @Type(() => Number)
   areaId?: number;
 
   @ApiPropertyOptional({ example: 1 })
   @IsOptional()
   @IsInt()
   @Min(1)
+  @Type(() => Number)
   distributorId?: number;
 
   @ApiPropertyOptional({ example: 1 })
   @IsOptional()
   @IsInt()
   @Min(1)
+  @Type(() => Number)
   territoryId?: number;
 }
 
@@ -63,12 +66,14 @@ export class RetailersQueryDto {
   @IsOptional()
   @IsInt()
   @Min(1)
+  @Type(() => Number)
   page?: number = 1;
 
   @ApiPropertyOptional({ example: 20 })
   @IsOptional()
   @IsInt()
   @Min(1)
+  @Type(() => Number)
   limit?: number = 20;
 
   @ApiPropertyOptional({ example: 'Arif' })

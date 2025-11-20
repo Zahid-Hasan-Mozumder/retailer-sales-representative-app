@@ -58,7 +58,7 @@ export class RetailerService {
       ),
     ]);
     const total = Number(totalRows[0]?.count ?? 0);
-    return new RetailersQueryResponseDto(items as any, total, page, limit);
+    return new RetailersQueryResponseDto(items, total, page, limit);
   }
 
   // async findByUid(user: User, uid: string): Promise<RetailerResponseDto> {

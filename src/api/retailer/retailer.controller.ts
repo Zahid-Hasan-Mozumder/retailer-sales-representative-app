@@ -10,7 +10,6 @@ import {
   ApiBody,
 } from '@nestjs/swagger';
 import {
-  PaginatedRetailersResponseDto,
   RetailerResponseDto,
   UpdateRetailerDto,
   RetailersQueryDto,

@@ -14,7 +14,12 @@ export class RetailersQueryResponseDto {
   @ApiProperty({ example: 100 })
   total: number;
 
-  constructor(items: RetailerResponseDto[], total: number, page: number, limit: number) {
+  constructor(
+    items: RetailerResponseDto[],
+    total: number,
+    page: number,
+    limit: number,
+  ) {
     this.items = items;
     this.page = page;
     this.limit = limit;
