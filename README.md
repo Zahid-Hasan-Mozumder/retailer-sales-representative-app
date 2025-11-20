@@ -185,3 +185,44 @@ generated/prisma/
 - Ensure PostgreSQL and Redis are reachable from your machine using the values in `.env`.
 - The Prisma client is generated to `generated/prisma` as configured in `prisma/schema.prisma`.
 - Search is accelerated using GIN/trgm indexes on several text columns.
+
+## Docker
+
+- Requirements:
+  - Docker Engine and Docker Compose plugin installed
+
+- Build and start the stack:
+
+  ```bash
+  docker compose up -d --build
+  ```
+
+- Apply migrations automatically (handled by `api` service command).
+
+- Seed the database:
+
+  ```bash
+  docker compose exec api npx prisma db seed
+  ```
+
+- View logs:
+
+  ```bash
+  docker compose logs -f api
+  ```
+
+- Stop and remove containers:
+
+  ```bash
+  docker compose down
+  # also remove the Postgres volume
+  docker compose down -v
+  ```
+
+- Override secrets and env:
+  - Edit `docker-compose.yml` `environment` section for `api`
+  - Or use a `.env` file (Compose automatically loads it)
+
+- Database and cache access:
+  - `psql`: `docker compose exec postgres psql -U postgres -d retailer_db`
+  - Redis CLI: `docker compose exec redis redis-cli`
