@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -10,7 +11,7 @@ async function bootstrap() {
   // Load environment variables from .env file
   dotenv.config();
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // Swagger configuration
   setupSwagger(app);
@@ -23,6 +24,9 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
+  const expressApp = app.getHttpAdapter().getInstance();
+  expressApp.set('query parser', 'extended');
 
   await app.listen(process.env.PORT ?? 3000);
 }

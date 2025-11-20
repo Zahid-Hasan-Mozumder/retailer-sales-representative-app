@@ -10,6 +10,7 @@ import { AreaModule } from './api/area/area.module';
 import { TerritoryModule } from './api/territory/territory.module';
 import { DistributorModule } from './api/distributor/distributor.module';
 import { AdminModule } from './api/admin/admin.module';
+import { RetailerModule } from './api/retailer/retailer.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AdminModule } from './api/admin/admin.module';
     TerritoryModule,
     DistributorModule,
     AdminModule,
+    RetailerModule,
   ],
   controllers: [],
   providers: [],
