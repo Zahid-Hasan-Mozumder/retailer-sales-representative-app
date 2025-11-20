@@ -1,4 +1,4 @@
-<h1 align="center">Retailer Sales Representative APP</h1>
+<h1 align="center">Retailer Sales Representative App</h1>
 
 An end-to-end NestJS API for managing retailers, sales representatives, regions, areas, territories, and distributors. It includes JWT authentication (access and refresh tokens), role-based authorization, Redis-backed caching, Prisma ORM with PostgreSQL, and a CSV generator/importer for bulk operations.
 
@@ -226,3 +226,9 @@ generated/prisma/
 - Database and cache access:
   - `psql`: `docker compose exec postgres psql -U postgres -d retailer_db`
   - Redis CLI: `docker compose exec redis redis-cli`
+
+## Scaling
+
+This backend is designed to scale horizontally: run multiple stateless API replicas behind a load balancer (containers or Kubernetes). Authentication uses JWT, so session state remains at the edges; hot user/profile lookups are cached in Redis. For resilience, deploy Redis in Cluster/Sentinel mode and tune TTLs and eviction to keep memory bounded.
+
+On the data layer, scale PostgreSQL with connection pooling (e.g., PgBouncer), proper indexing (GIN/trgm already present), and read replicas for high `GET` throughput; adopt keyset pagination and, where needed, table partitioning as data grows. Offload heavy tasks (CSV import, bulk assign/unassign) to asynchronous workers using a queue/outbox pattern to protect request latency. Add health checks, metrics, and tracing for autoscaling signals, and use rolling updates with `prisma migrate deploy` to keep deployments zero-downtime.
